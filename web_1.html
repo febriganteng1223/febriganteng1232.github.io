@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Movie Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .anime {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+        }
+        .anime img {
+            max-width: 100%;
+            height: auto;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Anime Movie Streaming</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#">Popular</a>
+        <a href="#">New Releases</a>
+        <div class="dropdown">
+            <button class="dropbtn">Genres</button>
+            <div class="dropdown-content">
+                <a href="#" data-genre="Action">Action</a>
+                <a href="#" data-genre="Adventure">Adventure</a>
+                <a href="#" data-genre="Comedy">Comedy</a>
+                <a href="#" data-genre="Drama">Drama</a>
+                <a href="#" data-genre="Roman">Roman</a>
+                <!-- Tambahkan genre lainnya di sini -->
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Popular Anime</h2>
+        <input type="text" id="search-input" placeholder="Search...">
+        <div class="anime">
+            <div class="anime-item" data-video="https://drive.google.com/file/d/17eUsicT5_H4vqmRj8GWBtE5UOCYRzAJ6/view?usp=drive_link" data-genre="Action">
+                <img src="img/undefined - Imgur.jpg" alt="girls und panzer part 4">
+                <h3>girls und panzer part 4</h3>
+            </div>
+            <div class="anime-item" data-video="https://drive.google.com/file/d/17aPe2dTSGm-KrknMI_9RTlbDzq3rOXAx/view?usp=sharing" data-genre="Drama">
+                <img src="img/anime-your-name-2_169 (1).png" alt="kimi no nawa">
+                <h3>kimi no nawa</h3>
+            </div>
+            <div class="anime-item" data-video="https://drive.google.com/file/d/1CL-Y4vGPkXRaEfYZnmGkmLLJQH0-no1B/view?usp=sharing" data-genre="Drama">
+                <img src="img/18622718_1666510046722339_722998955_n.jpg" alt="koe no katachi">
+                <h3>koe no katachi</h3>
+            </div>
+            <!-- Tambahkan item anime lainnya di sini -->
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Anime Streaming</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animeItems = document.querySelectorAll('.anime-item');
+            const searchInput = document.getElementById('search-input');
+            const genreLinks = document.querySelectorAll('.dropdown-content a');
+
+            animeItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const videoSrc = this.getAttribute('data-video');
+                    window.location.href = videoSrc;
+                });
+            });
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                animeItems.forEach(item => {
+                    const animeTitle = item.querySelector('h3').innerText.toLowerCase();
+                    if (animeTitle.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+
+            genreLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedGenre = this.getAttribute('data-genre');
+                    filterByGenre(selectedGenre);
+                });
+            });
+
+            function filterByGenre(genre) {
+                animeItems.forEach(item => {
+                    const itemGenre = item.getAttribute('data-genre');
+                    if (genre === 'All' || itemGenre === genre) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
